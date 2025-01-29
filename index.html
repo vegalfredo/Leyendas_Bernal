@@ -1,339 +1,544 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instituto CDA</title>
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/estilos.css">
+    <title>Guion LEYENDAS DE BERNAL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .paragraph-container {
+            margin-bottom: 1px;
+        }
+        .typewriter-font {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .controls {
+            margin-top: 150px;
+        }
+        {
+        margin-top:0;margin-bottom: 0px; /* Ajusta este valor según lo corto que quieras que sea el interlineado */
+        }
+        .nav-button {
+            background-color: rgb(216, 11, 172);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 15px; /* Esquinas redondeadas */
+        }
+        .nav-button:hover {
+            background-color: rgb(230, 27, 111);
+        }
+        .inline-container {
+            display: block;
+            align-items: center;
+            margin-top: 50px;
+        
+            
+        }
+        .inline-container h2 {
+            display: block;
+            align-items: center;
+            margin-top: 50px;
+        }
 
-    <meta name="theme-color" content="#2091F9">
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff; /* Cambia esto según tu diseño */
+            z-index: 1000;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    <meta name="title" content="Estudiar artes: Actuación, Música y Danza">
-    <meta name="description"
-        content="Estudiar actuación, música y danza desarrolla habilidades creativas, emocionales y físicas. Estas disciplinas fortalecen la expresión artística, la disciplina y el trabajo en equipo, abriendo oportunidades personales y profesionales en el ámbito cultural y escénico.">
+        .header h1 {
+            margin-top: 5px; /* Ajusta este valor según sea necesario */
+            margin-inline-start: 1%;
+            
+        }
 
+        .header h2 {
+            margin: 0; /* Elimina el margen predeterminado del encabezado */
+            /* Añade estilos adicionales según sea necesario */
+        }
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vegalfredo.github.io">
-    <meta property="og:title" content="Instituto Ciudad de las Artes">
-    <meta property="og:description"
-        content="Estudiar actuación, música y danza desarrolla habilidades creativas, emocionales y físicas. Estas disciplinas fortalecen la expresión artística, la disciplina y el trabajo en equipo, abriendo oportunidades personales y profesionales en el ámbito cultural y escénico.">
-    <meta property="og:image" content="https://github.com/vegalfredo/Instituto_CDA/blob/main/images/Logo%20CDA.png?raw=true">
+        .reload-button {
+        background-color: #d406a8;
+        background-image: linear-gradient(315deg, #bd0422d1 0%, #000000 74%);
+        color: white;
+        border: none;
+        padding: 12px 15px;
+        cursor: pointer;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        }
+        .reload-button:hover {
+        background-image: linear-gradient(315deg, #000000 0%, #e7039bef 74%);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+        }
+        .reload-button:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        } 
 
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.jordanalex.com/">
-    <meta property="twitter:title" content="Instituto Ciudad de las Artes">
-    <meta property="twitter:description"
-        content="Hola, soy una descripción que verás cuando busques algo de mi temática en Google.">
-    <meta property="twitter:image" content="https://github.com/vegalfredo/Instituto_CDA/blob/main/images/Logo%20CDA.png?raw=true">
+        /* Estilos para el menú hamburguesa */
+        .menu-container {
+            position: top;
+            top: 0px;
+            right: 20px;
+        }
 
+        .menu-button {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            width: 30px;
+            height: 25px;
+            justify-content: space-between;
+        }
+
+        .menu-button div {
+            height: 4px;
+            background-color: #000;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .menu-content {
+            display: none;
+            flex-direction: column;
+            position: relative;
+            top: 35px;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .menu-content a {
+            padding: 10px 50px;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.3s;
+        }
+
+        .menu-content a:hover {
+            background-color: #d0b3ff;
+        }
+
+        .menu-button.open .bar1 {
+            transform: rotate(-45deg) translate(-5px, 5px);
+        }
+
+        .menu-button.open .bar2 {
+            opacity: 0;
+        }
+
+        .menu-button.open .bar3 {
+            transform: rotate(45deg) translate(-5px, -5px);
+        }
+
+        .menu-content.open {
+            display: flex;
+        }
+
+        /* Media Queries para responsividad */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5em; /* Ajusta el tamaño del texto en dispositivos móviles */
+            }
+
+            .nav-button {
+                padding: 5px 10px; /* Ajusta el tamaño del padding en dispositivos móviles */
+                font-size: 0.9em; /* Ajusta el tamaño de la fuente en dispositivos móviles */
+            }
+               
+     
+
+                 
+    </style>
+
+    <link rel="icon" href="logo_bernal.png" type="image/png">
+    <link rel="apple-touch-icon" href="logo_bernal.png">
+    <link rel="icon" sizes="192x192" href="logo_bernal.png">
+    <link rel="icon" sizes="512x512" href="logo_bernal.png">
+
+    <meta property="og:title" content="EL MAGO DE OZ - guión">
+    <meta property="og:description" content="Guion "Un Mago de Oz a la Queretana">
+    
+    
+    <meta property="og:image" content="https://i.pinimg.com/e/e.jpg">
+    <meta property="og:url" content="https://i.pinimg.com/e/e.jpg">
 
     
+    <meta property="og:type" content="website">
+
+
 </head>
-
+        <!-- La Mina de la Chicaroma ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦ -->
 <body>
-
-    <header class="hero">
-        <nav class="nav container">
-            <div class="nav__logo">
-                <h2 class="nav__title">Instituto Ciudad de las Artes.</h2>
-            </div>
-
-            <ul class="nav__link nav__link--menu">
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Inicio</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Acerca de</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Licencuaturas</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Preparatoria</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Cursos</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Calendario</a>
-                </li>
-
-                <img src="./images/close.svg" class="nav__close">
-            </ul>
-
-            <div class="nav__menu">
-                <img src="./images/menu.svg" class="nav__img">
-            </div>
-        </nav>
-
-        <section class="hero__container container">
-            <h1 class="hero__title">Aprende Actuación, música o danza.</h1>
-            <p class="hero__paragraph">Potenciarás tu creatividad, disciplina y expresión personal, mientras desarrollas habilidades versátiles para adaptarte a múltiples industrias artísticas.</p>
-            <a href="#" class="cta">Comienza ahora</a>
-        </section>
-    </header>
-
-    <main>
-        <section class="container about">
-            <h2 class="subtitle">¿Por que estudiar con nosotros, Actuación, música o danza?</h2>
-            <p class="about__paragraph">Porque tu cuerpo cuenta historias. Tu voz transforma espacios. Tu presencia cautiva miradas, y nosotros te enseñamos cómo hacerlo brillar</p>
-
-            <div class="about__main">
-                <article class="about__icons">
-                    <img src= "./images/y_teatro_castle.svg" class="about__icon">
-                    <h3 class="about__title">Actuación</h3>
-                    <p class="about__paragrah">Actuar fortalece la creatividad, empatía y expresión emocional. Te permite explorar diferentes perspectivas y mejorar habilidades como la comunicación y el trabajo en equipo. Además, fomenta la confianza y la resiliencia, preparándote para enfrentar desafíos personales y profesionales. Es una carrera apasionante que transforma experiencias en arte y conexión humana.</p>
-                </article>
-
-                <article class="about__icons">
-                    <img src= "./images/y_musica.svg" class="about__icon">
-                    <h3 class="about__title">Música</h3>
-                    <p class="about__paragrah">La música es un arte que te ayuda a desarrollar disciplina, creatividad y habilidades emocionales. Mejora la memoria, concentración y coordinación. Además, ofrece una forma única de expresión y conexión con los demás. Abre oportunidades profesionales diversas, desde la enseñanza hasta la interpretación. La música transforma la vida, nutre el alma y construye puentes entre culturas.</p>
-                </article>
-
-                <article class="about__icons">
-                    <img src= "./images/y_danza.svg" class="about__icon">
-                    <h3 class="about__title">Danza</h3>
-                    <p class="about__paragrah">La danza conecta el cuerpo con las emociones, permitiendo expresar lo que las palabras no pueden. Cultiva sensibilidad artística y resistencia física, fortaleciendo el compromiso y la constancia. También promueve la interacción cultural y el autoconocimiento. Estudiarla abre puertas en el ámbito escénico y terapéutico, nutriendo tanto el crecimiento personal como profesional.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="knowledge">
-            <div class="knowledge__container container">
-                <div class="knowledege__texts">
-                    <h2 class="subtitle">Carrera de Actuación</h2>
-                    <p class="knowledge__paragraph">Ser actor ofrece un panorama prometedor gracias al crecimiento de la industria del entretenimiento. Las plataformas streaming, la publicidad y el teatro brindan diversas oportunidades laborales. La formación versátil permite trabajar en múltiples medios, mientras que el networking construido durante los estudios abre puertas en la comunidad artística.</a>
-                </div>
-
-                <figure class="knowledge__picture">
-                    <img src="./images/grupo-alumnos.jpg" class="knowledge__img">
-                </figure>
-            </div>
-        </section>
-
-        <section class="price container">
-            <h2 class="subtitle">Obten el plan perfecto para aprender</h2>
-
-            <div class="price__table">
-                <div class="price__element">
-                    <p class="price__name">Carrera</p>
-                    <h3 class="price__price">Musica</h3>
-
-                    <div class="price__items">
-                        <p class="price__features">Por el momento </p>
-                        <p class="price__features">No contamos </p>
-                        <p class="price__features">con esta carrera</p>
-                        <p class="price__features">atención proximas fechas</p>
-                    </div>
-
-                    <a href="#" class="price__cta">Proximamente</a>
-                </div>
-
-
-                <div class="price__element price__element--best">
-                    <p class="price__name">Carrera</p>
-                    <h3 class="price__price">Actuación</h3>
-
-                    <div class="price__items">
-                        <p class="price__features">Edad 17 a 30 años</p>
-                        <p class="price__features">de las 8:30 a las 15:00</p>
-                        <p class="price__features">Preparatoria terminada</p>
-                    </div>
-
-                    <a href="#" class="price__cta">Empieza ahora</a>
-                </div>
-
-
-                <div class="price__element">
-                    <p class="price__name">Carrera</p>
-                    <h3 class="price__price">Danza</h3>
-
-                    <div class="price__items">
-                        <p class="price__features">Por el momento </p>
-                        <p class="price__features">No contamos </p>
-                        <p class="price__features">con esta carrera</p>
-                        <p class="price__features">atención proximas fechas</p>
-                    </div>
-
-                    <a href="#" class="price__cta">Proximamente</a>
-                </div>
-
-
-            </div>
-        </section>
-
-        <section class="testimony">
-            <div class="testimony__container container">
-                <img src="./images/leftarrow.svg" class="testimony__arrow" id="before">
-
-                <section class="testimony__body testimony__body--show" data-id="1">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Mi nombre es Elba Ginón, <span class="testimony__course">estudiante
-                                Actuación.</span></h2>
-                        <p class="testimony__review"style="color: rgb(255, 255, 255)";>Soy estudiante de la licencuatura de actuación, y estoy muy contenta, he aprendido mucho y los profes se ve que saben, a veces me atraso con las tareas, pero lo mejor son las clases que son pura práctica y más práctica, ahora tengo una voz que no sabía que tenía.</p>
-                    </div>
-
-                    <figure class="testimony__picture">
-                        <img src="./images/face.jpg" class="testimony__img">
-                    </figure>
-                </section>
-
-                <section class="testimony__body" data-id="2">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Me llamo Zoila Gol Fabregas, <span class="testimony__course">estudiante de
-                                preparatoria.</span></h2>
-                            <p class="testimony__review"style="color: rgb(255, 255, 255)";>Es increíble hacer el nivel medio superior al mismo tiempo que estudio lo que más me gusta, ojalá más gente supiera de esta escuela, sabrían que esta muy padre estudiar aquí...</p>
-                    </div>
-
-                    <figure class="testimony__picture">
-                        <img src="./images/face2.jpg" class="testimony__img">
-                    </figure>
-                </section>
-
-                <section class="testimony__body" data-id="3">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Soy Aquiles Esquivel Madrazo, <span class="testimony__course">estudiante de Música.</span></h2>
-                            <p class="testimony__review"style="color: rgb(255, 255, 255)";>Desde siempre me ha gustado cantar, bailar, tocar el piano y es de no creerse que en esta escuela puedo hacer todo esto y más... </p>
-                    </div>
-
-                    <figure class="testimony__picture">
-                        <img src="./images/face4.jpg" class="testimony__img">
-                    </figure>
-                </section>
-
-                <section class="testimony__body" data-id="4">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Mi nombre es Jorge Nitales, <span class="testimony__course">estudiante de
-                                CSS.</span></h2>
-                            <p class="testimony__review"style="color: rgb(255, 255, 255)";>Hola, soy un chavo trans y en esta escuela encontre 2 de mis grandes pasiones, el teatro y la danza, son mega hiper inclusivos y me siento como en casa...</p>
-                    </div>
-
-                    <figure class="testimony__picture">
-                        <img src="./images/face3.jpg" class="testimony__img">
-                    </figure>
-                </section>
-
-
-                <img src="./images/rightarrow.svg" class="testimony__arrow" id="next">
-            </div>
-        </section>
-
-        <section class="questions container">
-            <h2 class="subtitle_02">¿Aún con dudas?</h2>
-            <p class="questions__paragraph">Entendemos que dar el primer paso hacia tu formación artística genera muchas preguntas. Aquí encontrarás las respuestas que necesitas para comenzar tu viaje en las artes escénicas. Tu futuro artístico empieza con la información correcta</p>
-
-            <section class="questions__container">
-                <article class="questions__padding">
-                    <div class="questions__answer">
-                        <h3 class="questions__title">¿Qué es el Instituto Ciudad de las Artes?
-                            <span class="questions__arrow">
-                                <img src="./images/arrow.svg" class="questions__img">
-                            </span>
-                        </h3>
-
-                        <p class="questions__show">Somos una institución que surge en la ciudad de México, teniendo siempre como prioridad la formación de artistas completos de alto rendimiento y grandes capacidades artísticas. Siempre fomentando en el alumno, nuestros valores fundamentales, DISCIPLINA, PUNTUALIDAD, PERSEVERANCIA, PROFESIONALISMO, SEGURIDAD Y ETICA, Bajo el principio del maestro Constantin Stanislavski "Para ser mejor actor / actriz hay que ser mejor persona y un ser humano idea</p>
-                    </div>
-                </article>
-
-                <article class="questions__padding">
-                    <div class="questions__answer">
-                        <h3 class="questions__title">¿Tienen Talleres?
-                            <span class="questions__arrow">
-                                <img src="./images/arrow.svg" class="questions__img">
-                            </span>
-                        </h3>
-
-                        <p class="questions__show">Tenemos el WorkShop de Teatro y Actuación, el cual está dirigido para todas aquellas personas que quieran incursionar en las artes escénicas. Con clases muy dinámicas y prácticas de expresión corporal, movimiento escénico, dicción, voz, entonación, creación de personajes, actuación y montaje de obra teatral. Termnamos con una puesta en escena final en nuestro Teatro AlescenArio</p>
-                    </div>
-                </article>
-
-                <article class="questions__padding">
-                    <div class="questions__answer">
-                        <h3 class="questions__title">¿El cerfificado al terminar, tiene validez Oficial de la SEP?
-                            <span class="questions__arrow">
-                                <img src="./images/arrow.svg" class="questions__img">
-                            </span>
-                        </h3>
-
-                        <p class="questions__show">Sí, nuestros programas cuentan con Reconocimiento de Validez Oficial de Estudios (RVOE) otorgado por la Secretaría de Educación Pública (SEP). Al graduarte, recibirás un certificado oficial que respalda tu formación profesional y te permite continuar con estudios superiores o ejercer profesionalmente en el campo de las artes escénicas</p>
-                    </div>
-                </article>
-            </section>
-
-            <section class="questions__offer">
-                <h2 class="subtitle_02">¿Estas listo para cambiar tu vida?</h2>
-                <p class="questions__copy">Tu talento merece el mejor escenario. No esperes más para dar vida a tus sueños artísticos, estamos listos para guiarte en este viaje transformador.
-                    El arte no espera. Tu momento es ahora.</p>
-                <a href="#" class="cta">Tu futuro comienza aquí</a>
-            </section>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <section class="footer__container container">
-            <img src="./images/Ciudad de las artes.png" class="nav__close"></img>
-
-            <nav class="nav nav--footer">
+    
+    <div class="header">
+        <h1>Leyendas de Bernal</h1>
+        
             
-                
-            <h2 class="footer__title">Instituto Ciudad de las artes.</h2>
-                    
-
-                <ul class="nav__link nav__link--footer">
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Inicio</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Acerca de</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Licencuaturas</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Preparatoria</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Cursos</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Calendario</a>
-                    </li>
-                </ul>
-            </nav>
-
-            
-            
-            <form class="footer__form" action="https://formspree.io/f/mknkkrkj" method="POST">
-                <h2 class="footer__newsletter">¿Eres alumno o maestro?</h2>
-                <div class="footer__inputs">
-                    <input type="email" placeholder="Email:" class="footer__input" name="_replyto">
-                    <input type="submit" value="Inicia Sesión" class="footer__submit">
-                </div>
-            </form>
+        <!-- Aquí puedes agregar tus imágenes y botones -->
+        
+        <button class="reload-button" onclick="hardReload()">Actualizar</button>
+        <button class="nav-button" onclick="location.href='#escena_01'">La Chicaroma</button>
+        <button class="nav-button" onclick="location.href='#escena_02'">Lucila y Paco</button>
+        <button class="nav-button" onclick="location.href='#escena_03'">El cuervito</button>
         
 
-        </section>
 
-        <section class="footer__copy container">
-            <div class="footer__social">
-                <a href="#" class="footer__icons"><img src="./images/facebook.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/twitter.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/youtube.svg" class="footer__img"></a>
-            </div>
+        <div class="menu-container">
+            
+        </div>
+        
+    
+    </div>
 
-            <h3 class="footer__copyright">Derechos reservados &copy; Instituto Ciudad de las Artes</h3>
-        </section>
-    </footer>
+    <div class="paragraph-container">
+        
+                   
+        <div class="controls">
+            <p class="typewriter-font">Actualizado al miércoles 29 de enero  a las 14:59 hrs. </p>
+            <br>
+            
+            <p style="color:rgb(95, 95, 95);"class="typewriter-font">MÚSICA DE SALA 0</p>
+            <button onclick="playAudio('00 Musica de Sala.mp3')">Reproducir MUSICA DE SALA 0</button>
+            <button onclick="stopAudio()">Detener</button>
+            <label for="volumeControl">Vol: </label>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" />
+            
+            <br><br>
+            
+            <p style="color:rgb(95, 95, 95);"class="typewriter-font">Primera llamada</p>
+            <button onclick="playAudio('01 primera llamada Las Leyendas.mp3')">Reproducir 1ra LLAMADA </button>
+            <button onclick="stopAudio()">Detener</button>
+            <label for="volumeControl">Vol: </label>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" />
 
-    <script src="./js/slider.js"></script>
-    <script src="./js/questions.js"></script>
-    <script src="./js/menu.js"></script>
+
+            
+
+
+        <h2 id="escena_01">♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦</h2><br>
+        <div class="inline-container">
+            <h2>La Mina de la Chicaroma</h2>
+        </div>
+        
+
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font">Nos encontramos en "El Baratillo en Bernal", 
+            después de la Tercera llamada un hombre se aparece de entre la multitud 
+            va llegando desde lo lejos ataviado con un jorongo y zendo sombrero, es el SERENO,
+             que entra pregonando la hora y las noticias y chismes del pueblo. </p>
+            
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¡¡Las ochooo (o la hora que sea en ese momento) y tooodo sereeeenoooo!! (buscar una parejita y hablar de acuerdo a la descripción de su vestimenta) ¡¡Se diceeee en el Pueeeblooo que el Joveeen de Rooojooo se quiere robar a la chica de blancooooo! ¡¡En otras noticiaaaas, el tesoro perdido de Tiburcio Ángelees, sigue perdidoooo!! Ahora el reporte del clima: Aquí en el Pueblo de Bernal --donde la peña tiene una altitud de 2515 metros sobre el nivel del mar y una altura de 350 metros…-- estamos a 28 grados centígrados, se esperan fuertes fríos en la noche y fuertes calores en el día, ligera probabilidad de lluvia y muchas probabilidades de ¡diversiooon!
+            ¿Qué pasó padrino, cómo le va?, gusto en saludarle… ¡Primo!... que gusto verte, y con una prima nueva he… esta, está más guapa que la de la semana pasada. Oye ¿porque será que Don Agustín siempre viene con su mujer? Para mí, que es medio mandilón... Buenas noches Don Agustín, gusto en saludarle, que bueno que se pasea por Bernal al lado de su señora esposa… como siempre….
+            Buenas Noches a todos, vecinos, gente orgullosa de pertenecer a nuestro hermoso Bernal, gente de raíces fuertes, incorruptibles, impenetrables… </p><br>
+
+            <p style="color:rgb(95, 95, 95);"class="typewriter-font">Música Misterio entrada VIEJITA</p>
+            <button onclick="playAudio('06 Suspenso entrada Viejita.mp3')">Reproducir Música Misterio VIEJITA </button>
+            <button onclick="stopAudio()">Detener</button>
+            <label for="volumeControl">Vol: </label>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" /><br>
+
+
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font">De la multitud sale una viejita con aspecto humilde…</p>
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font">(A alguien del público improvisando con algo que traigan puesto) </p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Buenas noches… ¿Cómo está? Sí que bueno… Oiga está muy bonito su suéter… ¿Me lo vende? ¡Ándele!… si tengo con queso… mire (saca unas bolitas doradas, de preferencia chocolates) Ve. Le conviene… ¿No? Bueno piénselo, yo mientras voy por mi mandado.</p>
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font"> (Sale)</p>
+
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¿Vieron eso que traía la viejecita? ¡Era oro! ¿Usted no quiere oro, ni quiere plata, usted lo que quiere es romper la piñata? ¡Ahh! ¿si quiere oro? Dan como ganitas de perseguirla ¿verdad? Podríamos… Yo sé por dónde camina. Porque yo sé todo de este pueblo, y por eso les digo que… ¡No les conviene perseguirla! El último que lo hizo, desapareció ¡Y no lo volvimos a ver nunca jamás en la vida del mundo mundial! En serio… ¿No me creen? ¿Quieren que les cuente? Bueno pero primero dígame la hora (espera respuesta) bien. Gracias.
+            ¡Las X… y tooodooo sereeeenoooo! Es que ando chambeando. Tengo que cumplir lo mío, y ya después el chisme choncho. Pero ya cumplí lo mío… así que ahí les va el chisme choncho.
+            Resulta que una viejita. Que igual y podría ser esa misma que pasó. Porque, aunque esto fue desde aiden bastante tiempo, aquí la gente es bien longeva. No, no de lonjas, aunque tambien… poquito, pero más bien eso quiere decir de que viven muchos años. Que es que: por que el magnetismo, o que si el Quetzalcoatl que vive dentro de la peña, que si extraterrestres, o el manantial del Cuervito. Y pues será el Sereno… ¡jaja ósea Yo! Porque yo soy el Sereno. ¿Si entendieron?… Bueno, lo cierto es que la gente si vive bien requetequeartos años, ósea que igual y esa misma es la viejita de la historia que les voy a contar…
+            Pues esta viejita, vivía en una mina, que se encuentra en la parte trasera de la peña en el pueblo de San Antonio de la Cala, cerquita del barrio del Álamo.</p>
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font">Regresa la Viejita:</p>
+
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Hola mijitos, ¿sabían que vivo en una mina? Si, se encuentra en la parte trasera de la peña… en el pueblo de San Antonio de Cala, cerquita del barrio del Álamo.</p>
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Esa viejita bajaba cada domingo de la cueva donde vivía, para tomar la misa de las 7 de la mañana en la Iglesia de San Sebastián Bernal. </p>
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font">La viejita se acerca a alguien del público y le pone una estola.  </p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Ay! voy a bajar al pueblo a tomar
+            la misa de las siete de la mañana en la Iglesia de San Sebastián Bernal.
+            Buen día padre. Se me han acumulado varios pecados en esta semana, ¿podría confesarme?
+            Bien. Pues empiece. Usted debe decir: Ave María Purísima (hace que lo diga).
+            Sin pecado concebida. Padre tengo que confesarle cosas bien fuertes. Para empezar, 
+            debo decirle que me gusta el señor de allá (Señala a alguien del público y lo describe). 
+            Y creo que es casado. Pero creo que me corresponde, porque hace rato me voltio a ver la parte trasera. 
+            Y luego me siguió… y ¡me beso! Y hasta se quedo con mi dentadura postiza. Pero no estoy segura… 
+            ¿Cree que le gusto? ¿Qué debería hacer? (Esperar respuesta e improvisar). 
+            También tengo otros pecados. La verdad es que me he vuelto medio coda. 
+            Yo sé que podría comprar muchas cosas con el tesorito que descubrí, pero me duele rete arto el codo,
+            y luego ahí ando regateando. Y pues eso me da remordimiento, pues porque no necesitaría regatear, tengo de sobra.
+            Pero, como que siento que se me puede acabar el tesoro. Aunque yo sé que no. Pero lo pienso --usted sabe--.
+            Y luego siento que la gente me lo quiere quitar… Y eso me lleva a otro pecado más grave.</p>
+
+
+            <p style="color:rgb(95, 95, 95);"class="typewriter-font">Música de Chan Chan Chan Chaaaan </p>
+            <button onclick="playAudio('03 CHAN CHAN CHAAAN.mp3')">Reproducir Música Chan Chaaaan </button>
+            <button onclick="stopAudio()">Detener</button>
+            <label for="volumeControl">Vol: </label>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" /><br>
+
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Pero ese mejor se lo Susurro… (Se acerca al padre y le susurra al oído y le pide que ponga cara de susto). Bien Padre. Gracias por escucharme. Ya me se la penitencia: diez aves Marías y cinco padres nuestros. </p>
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font">(Sale). </p>
+
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Después de terminar su misa, la viejecita iba a comprar su mandado al mercado de tradición del pueblo, justo aquí dónde estamos, y que la gente conoce como: el Portal del Baratillo, porque los vendedores siempre gritaban: “¡Llévele marchanta! ¡Baratillo baratillo!” Y de ahí salió el nombre de: él Baratillo. A ver ayúdenme a vender…
+¿Usted que va a vender? (espera respuesta e improvisa con el público) Bien, pero recuerde que tiene que terminar con ¡Baratillo! ¡Baratillo! 
+(A otra persona del público) ¿Y usted que va a vender? ¿Las naranjas? ¿Los melones? Ósea la fruta digo… (Impro y juega con otras personas más). Bien, ahorita que pase la viejita le venden sus productos… ósea su fruta, su ropa…
+Entra la viejita con su bolsa para el mandado e improvisa con la gente dependiendo que esté vendiendo</p>
+
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Me da dos kilos de naranjas, dos melones, media sandía, y un kilo de tunas… ¿Cuánto va a ser? (Espera respuesta), ¡Eso es un robo! Te doy media pepita de oro y di que te fue bien.
+(Va con otra persona) ¿Y usted que vende? (Improvisa y con todos regatea llega con el sereno)</p>
+
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¡Qué tal Marchanta! Pásele al tour turístico. Tenemos las leyendas con actores profesionales, anímese va a estar bien divertido.</p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong> Ah sí… ¿y cuento cuesta? Porque yo tengo mi tarjeta del INAPAN y con esa me hacen descuento ¿verdad?</p>
+
+
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Para usted, por ser parte de nuestras leyendas, se las daremos totalmente gratis. </p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Ah no! ¡Yo quiero mi descuento!</p>
+        
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Pero le estoy diciendo que es gratis…</p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Pero quiero mi descuento! ¡Yo tengo mi tarjeta de descuentos!</p>
+        
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¡Pero es gratis!</p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Mi descuento!</p>
+        
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Bueno ¡Está bien! ¡son diez pesos!</p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Le doy media pepita de oro</p>
+
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Jalo</p>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Huy que ganga! Jeje me lo hice wey. </p>
+        
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Pues bueno. El tema es que la viejita iba a comprar su mandado tranquilamente, pero pasaba algo curioso que sorprendía a todas las personas que la veían a su alrededor, ya que cuando pagaba…, ¡Pagaba con puros pedacitos de oro! Pepitas de oro como le llaman.
+Un día un joven (tomar a alguien del público y describirlo) se sorprendió mucho de sus pepitas… y puso cara de sorprendido (dar instrucciones al público para que lo haga), y dijo: “¡Ah jijo!” (esperar que lo haga) “¡Paga con puras pepitas!” (Esperar que lo diga) “La seguiré para ver de dónde las saca” (Esperar que lo diga).
+Así que decidió perseguirla. Vamos a perseguirla junto con él (los hace caminar ahí mismo en su lugar) ¡Ahí va! Se fue por un costado de la peña, por el barrio que se le conoce como el barrio del Puerto. Pónganse barrio… por que vamos a pasar por puro barrio, ¡Allá va! se dirige al barrio del Álamo… ¡Ay nanita! Ahí está la parte trasera de la peña. Como quien dice las nachas de la peña. ¡Miren! ¡Ahí esta la entrada de la Mina de la Chicaroma! --así completo, no chica Roma. Por qué algunos piensan que es una chica que vino de Roma… pero no--. ¿Si ven la entrada? Solo la gente inteligente puede verla. Si la ven ¿verdad? (Esperar respuesta e interactuar con el público) Pero ya no hay que seguirla hasta allá. ¡Que susto! Que vaya solo el joven.
+Así que el joven, muy valiente, macho Alfa, Lomo en pecho y pelo plateado… la siguió adentro de la Mina. 
+</p>    
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font"> (La viejita se pierde de la vista del público y hay que hacer que el joven elegido la siga).</p>
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¡¿Está bien joven?! ¡¿Sigue por ahí?! ¡¿Joven?! </p>
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font">(La actriz debe indicarle al joven que grite en off) </p>
+        <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¡¡Ayy!! ¡Dios! ¿Joven? Y bueno… Así paso… y no regresó… Y nunca más se volvió a saber de aquel joven. (a la familia del chico) Espero que su familia no lo quisiera tanto… 
+Y… Pues… ¿Qué creen que le haya pasado? (Improvisar con el público para que den diferentes explicaciones).
+Así fue que algunos lugareños ¡pensaron lo peor!: Que la viejita mataba a las personas que la perseguían… ¡y se los comía! Ay no, eso último ya es exageración, aunque podría ser jeje.
+Pero lo más extraño, es que pasada una semana ¡La viejita volvió a su misa en San Sebastián de las siete de la mañana!  </p>
+    
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Ay! como me encanta venir a misa a San Sebastián a las siete de la mañana.</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">(va a repetir lo de la primera vez pero en rapidito, como en 3x) </p>    
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Buen día padre. Se me han acumulado varios pecados en esta semana, ¿podría confesarme? Bien. Pues empiece. Usted debe decir: Ave María Purísima (hace que lo diga). Sin pecado concebida. Padre tengo que confesarle cosas bien fuertes. Para empezar, debo decirle que me gusta el señor de allá (Señala a alguien del público y lo describe). Y creo que es casado. pero creo que me corresponde… porque hace rato me agarro una nalga ¿Qué debería hacer? (Esperar respuesta e improvisar). También tengo otros pecados.  Y luego siento que la gente me quiere quitar mi tesoro. Y eso me lleva a otro pecado más grave. Pero ese mejor se lo Susurro… (Se acerca al padre y le susurra al oído y le pide que ponga cara de susto). Bien, Padre. Gracias por escucharme. Ya me se la penitencia: diez aves Marías y cinco padres nuestros.</p>   
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">Sale</p>
+
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Y luego igual se fue a comprar su mandado aquí al portal del Baratillo, que se llama así porque todos gritan que su producto esta baratillo. (Insta al público a repetir la escena anterior) ¡Órale! ¡Pónganse a vender sus productos! </p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">Entra la viejita con su bolsa para el mandado e improvisa con la gente dependiendo que esté vendiendo</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Me da dos kilos de naranjas, dos melones, media sandía, y un kilo de tunas… ¿Cuánto va a ser? (Espera respuesta), ¡Eso es un robo! Te doy media pepita de oro y di que te fue bien.
+(Va con otra persona) ¿Y usted que vende? (Improvisa y con todos regatea llega con el sereno).</p>    
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¡Qué tal Marchanta! Pásele al tour turístico, tenemos las leyendas con actores profesionales. Anímese va a estar bien divertido. </p>   
+
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">S E G U N D A  V U E L T A</p>
+
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Ah sí… ¿y cuento cuesta? Porque yo tengo mi tarjeta del INAPAN y con esa me hacen descuento ¿verdad? </p>
+
+
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Para usted, por ser parte de nuestras leyendas, se las daremos totalmente gratis. </p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Ah no! ¡Yo quiero mi descuento!</p>
+    
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Pero le estoy diciendo que es gratis…</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Pero quiero mi descuento! ¡Yo tengo mi tarjeta de descuentos!</p>
+    
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>¡Pero es gratis!</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Mi descuento!</p>
+    
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Bueno ¡Está bien! ¡son diez pesos!</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>Le doy media pepita de oro</p>
+
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Jalo</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>VIEJITA: </strong>¡Huy que ganga! Jeje me lo hice wey, otra vez </p>
+
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>SERENO: </strong>Pues bueno. La cosa es que la viejita iba a comprar su mandado tranquila y normalmente. Así que la gente se sorprendió (los hace sorprenderse) ¡Ohh! Pues pensaron: “si hubiera hecho algo malo, pues no habría regresado” … ¿Oh si?
+Y las dudas sobre por qué no había regresado aquel Joven continuaron. Así que siguieron investigando.
+¡Compañeros! ¡Sigamos investigando! Porque después de todo la familia del joven… si lo quería. Así que ¡vamos a entrar a la cueva! (Hace como que entra a la cueva y busca). Pues no hay rastros del joven, aunque ese de ahí se parece, pero no creo que sea (Señalando al joven que se usó para el personaje): Pero lo que si encontramos es esto: Miren. Pruébenlo… MMm ¿A que les sabe? (Esperar respuestas) Mmm pues es popo… Y no cualquier popo, es popo de murciélago, también conocida como Guano. Y mejor escúpanla, porque es altamente tóxica… ¡Aaahh! ¡Por eso la viejita siempre traía su reboso y se lo ponía en la cara al entrar a la mina! ¡Para no intoxicarse con el guano! Por que quien lo huele… puede… ¡Morir! ¿usted ya lo olio? Aahhh fue un gusto conocerle (Improvisar). Así que misterio resuelto. Seguramente aquel Joven haya muerto en la visita que hizo a la Mina de la Chica Roma. 
+Pero para los que están pensando en ir a buscar la mina acabando el recorrido, déjenme contarles que años después de que sucedió lo sucedido que aconteció…: un Sacerdote viendo todas las rencillas, problemas y terrores que causaba la tentación de la mina, decidió cerrarla. “¡Ciérrate mina! ¡Para que desaparezcan las envidias!” y desde entonces la entrada a esta mina no se ha podido localizar.
+Verdad, mito, chisme o leyenda… No lo sabemos, simplemente es una de las tantas leyendas con las que cuenta el pueblo mágico de Bernal. Pero lo cierto es que la peña si tiene cuarzo, oro y plata.
+De hecho… de un lado de la peña está el cerro del Picacho, así como el pokemón, pero con “o” Picacho.  Y atrás de ese cerro hay un pueblo que se llama san Martin, y ahí hay una mina que se llama… San Martín –Muy original el nombre–. Y de ahí extraen oro, plata y mucha grava, para las carreteras. Así que, de que hay oro, por aquí… Hay oro. Esa es una realidad. Solo es cosa de encontrarlo ¿verdad? 
+Me puede dar la Hora… (Espera respuesta) ¡Ah jijo! ¡Ya es bien tarde! ¡Las ochooo treintaaaa y tooodooo sereeeenoooo! Si quieren acompáñenme a trabajar y les voy contando otras historias. ¡Vénganse! ¡Órale! ¡No se queden atrás!, que les pasen sus antorchas para que sean Serenos practicantes.</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">(Los guía al siguiente punto)</p><br><br><br>
+
+    <h2 id="escena_02">♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦</h2>
+        <div class="inline-container">
+            <h2>Lucila que Murió de Amor</h2>
+        </div>
+
+        <p style="color:rgb(255, 0, 0);"class="typewriter-font"> Dentro del Mesón de San José, en una banca o en el barandal.
+ Una mujer muy hermosa, en la cúspide de su vida, esperando a alguien, se nota preocupada por que alguien la vea ahí. Saca una una pluma fuente y una libreta hecha a mano de papel grueso y fino. Escribe en él.</p>
+
+
+        <p style="color:rgb(95, 95, 95);"class="typewriter-font">MÚSICA DE TELENOVELA ROMATICA</p>
+        <button onclick="playAudio('07 MUSICA AMOR TELENOVELA.mp3')">Reproducir MUSICA DE NOVELA</button>
+        <button onclick="stopAudio()">Detener</button>
+        <label for="volumeControl">Vol: </label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" />
+
+
+        <br><br><br>
+        <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>14 de febrero de 1935, San Sebastián Bernal. Hoy aguardo, espero la luna me cobije en su vaivén, que el viento me acaricie como su voz en mi ser, que su palabra me lleve al rincón del amanecer. Amado mío, es imposible no pensarte a cada momento, a cada compás del tiempo eterno. Los recuerdos invaden mi alma, las miradas en misa mayor, el palpitar del corazón cuando recibo una carta tuya enviada por nuestros cupidos cómplices. La tinta que se derrama con mi entereza casta en pos del alba en tus brazos. 
+Amado mío, alegre vivo por saber que estás conmigo y a pesar de los inconvenientes modos de mi padre, sus insultos y maldiciones, tus párpados no han cerrado las ganas de amor por mí. De igual modo, te reitero que soy eternamente  tuya. Tu amada, Lucila. </p>      
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font"> Separa la hoja donde escribía y la dobla para después poder entregarla. Saca de sus ropas una carta que desdobla y lee. </p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong> Amada mía, todas las sonatas me recuerdan a ti, los olores se desprenden de mi cuerpo para recordar el tuyo, las pupilas se dilatan al soñarte y mi vida se desgasta al no tenerte. 
+Amada mía, espero con ansias verte en el jardín a la media noche. Los intendentes están avisados y me han permitido el paso. Estoy seguro que nuestro amor es eterno y cada mañana será nuestra y los inconvenientes desaparecerán como mis pensamientos al contemplar... </p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong>Tú hermoso rostro... </p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font"> Mientras Lucila leía las últimas frases, la voz de Francisco se hacía presente hasta llegar frente a ella.</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>¡Francisco!</p>
+    
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">(Corre a sus brazos efusivamente)</p>
+
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong>¡Lucila! No puedo creer lo bella que eres y el amor que te tengo.</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font"> (Ella se ruboriza)</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong> Amor, te cité para lo siguiente. Lucila, sabemos que tu padre jamás aceptará lo nuestro, no puede entender que su hija ame a un hombre pobre, y mientras yo no pueda darte una vida mejor, nuestro amor estará incompleto. Es por eso que he decidido viajar a los Estados unidos para trabajar y juntar dinero y poder casarnos.</p>    
+
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Yo no podría vivir sin ti Francisco</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong> Solamente serán dos años. Después regresaré por ti y nos iremos a vivir a Querétaro. ¿Esperarás por mí?</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Lo que sea necesario amado mío</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong>Te escribiré seguido</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Te responderé todo el tiempo</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">(él la intenta besar pero ella lo esquiva sutilmente y se dan un fuerte abrazo)</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong>Te amo por siempre</p>    
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Te amo por siempre</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font"> (Francisco emprende la retirada)</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Francisco... Toma</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font"> (Le da la carta que le escribió con anterioridad)</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Siempre nos hemos mandado cartas, pero siempre quise darte una carta en persona.</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong>¡Gracias!</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>NO HAY DE QUESO, NO MAS DE PAPA</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Prométeme que al regresar tú me darás una.</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong>Cuando regrese, al casarnos, no tendremos necesidad de escribirnos más. Pero te prometo que cuando vuelva te daré una carta en persona.</p>
+
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">Francisco se retira a otro punto del lugar. Ahora lo vemos escribiendo cartas para su amada. Se encuentra triste.</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong>Amada Lucila. Llevo un año y medio en este país y nunca me había sentido tan solo. No conozco el motivo por el cual no me has respondido mis últimas cartas. Sin embargo el alba se convierte en esperanza pues nuestro encuentro esta próximo. Responde amada mía. Atte. Francisco</p>
+
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">Éste desaparece y entra Lucila, que ha estado ensimismada.</p>
+    
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Cuatro meses sin recibir una sola carta. ¿Dónde estás Francisco?</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">(Se dirige a una mujer del público)</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong> Gabriela. Necesito tu ayuda. Averigua con mi padre si ha llegado alguna carta para mí, yo no me atrevo a preguntarle (De espaldas y en otro lugar se ve al padre que levanta un fajo de cartas no entregadas.)</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>PAPÁ: </strong>No ha llegado ninguna carta a esta dirección y mucho menos para Lucila.</p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Por favor pregúntale si sabe algo de Francisco. Te lo ruego como amigas.</p>
+    
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>PAPÁ: </strong>Comunícale a mi hija que Francisco tuvo un accidente y murió instantáneamente.</p>
+    
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">(Como si la noticia la hubiera escuchado de Gabriela, Lucila llora desconsolada.)</p>
+    
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>Por favor pregúntale si sabe algo de Francisco. Te lo ruego como amigas.</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>PAPÁ: </strong>Comunícale a mi hija que Francisco tuvo un accidente y murió instantáneamente.</p>
+
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font">(Como si la noticia la hubiera escuchado de Gabriela, Lucila llora desconsolada.) </p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong> ¿Qué? No me puedes decir eso Gabriela. Francisco no está muerto, no puede estar muerto. (Desesperada, gritando) No... Francisco... Te juro amado mío que no seré de nadie, de nadie hasta reunirme contigo en el cielo.</p>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font"> Lucila va hacia el balcón, se encuentra muy dolida.</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>PAPÁ: </strong>Lucila. Tienes que comer.</p>
+    
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>No me apetece. Gracias.</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>PAPÁ: </strong>Lucila. Tu padrino te vino a visitar, trae consigo un regalo.</p>
+    
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong>No quiero ver a nadie.</p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>PAPÁ: </strong>Estás enfermando Lucila, hace meses que no pruebas bocado, tienes que ver a un médico.</p>
+
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong> ¡No quiero ver a nadie! ¿Recuerdas que hace meses me dijiste "Prefiero verte muerta, que casada con un jodido y muerto de hambre"? Eso estoy haciendo papá, ¡morirme! </p>
+    
+        <p style="color:rgb(95, 95, 95);"class="typewriter-font">MÚSICA DE TELENOVELA ROMATICA</p>
+        <button onclick="playAudio('07 MUSICA AMOR TELENOVELA.mp3')">Reproducir MUSICA DE NOVELA</button>
+        <button onclick="stopAudio()">Detener</button>
+        <label for="volumeControl">Vol: </label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" />
+
+
+
+    <br><br><br>
+    <p style="color:rgb(255, 0, 0);"class="typewriter-font"></p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>FRANCISCO: </strong></p>
+    <p style="color:rgb(25, 98, 235); class="Arial"> <strong>PAPÁ: </strong></p>
+    <p style="color:rgb(212, 4, 125); class="Arial"> <strong>LUCILA: </strong></p>
+    
+        
+
+
+        <h2 style="color:red;">F I N</h2>
+        
+        
+
+
+    </div>
+
+
+        </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <script>
+        function playAudio(song) {
+            var audio = document.getElementById('audioPlayer');
+            if (audio.src !== song) {
+                audio.src = song;
+            }
+            audio.play();
+        }
+
+        function stopAudio() {
+            var audio = document.getElementById('audioPlayer');
+            audio.pause();
+            audio.currentTime = 0;
+            setVolume(0.5);  // Restablece el volumen a 50%
+            document.getElementById('volumeControl').value = 0.5;  // Actualiza el control deslizante
+        }
+
+
+        function restartAudio() {
+            var audio = document.getElementById('audioPlayer');
+            audio.currentTime = 0;
+            audio.play();
+            setVolume(0.5);  // Restablece el volumen a 50%
+            document.getElementById('volumeControl').value = 0.5;  // Actualiza el control deslizante
+        }
+
+        function setVolume(volume) {
+            var audio = document.getElementById('audioPlayer');
+            audio.volume = volume;
+        }
+
+
+
+
+        
+        // Obtener todos los elementos de texto en el cuerpo del documento
+        var textElements = document.body.getElementsByTagName('*');
+        
+        // Obtener todos los elementos de texto en el cuerpo del documento
+        var textElements = document.body.getElementsByTagName('*');
+        
+
+        function hardReload() {
+            window.location.reload(true);
+        }
+
+        function toggleMenu() {
+            const menuButton = document.querySelector('.menu-button');
+            const menuContent = document.getElementById('menuContent');
+            menuButton.classList.toggle('open');
+            menuContent.classList.toggle('open');
+        }
+       
+   
+    </script>
 </body>
-
 </html>
