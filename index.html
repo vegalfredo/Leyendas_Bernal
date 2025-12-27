@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <span id="estado-offline" style="font-size:12px; color: yellow; display:none;">💾 Contenido guardado</span>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guion LEYENDAS DE BERNAL</title>
@@ -190,8 +191,14 @@
 <body>
     
     <div class="header">
-        <h1>Leyendas de Bernal</h1>
-        
+
+        <h1>
+            Leyendas de Bernal 
+            <!-- ESTA ES LA LINEA NUEVA PARA EL MENSAJE: -->
+            <span id="estado-offline" style="font-size:12px; color: #006400; display:none; margin-left:10px; font-weight: bold;"></span>
+        </h1>
+
+
             
         <!-- Aquí puedes agregar tus imágenes y botones -->
         
@@ -650,30 +657,28 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
 
     <audio id="audioPlayer"></audio>
 
-    <script>
-        function playAudio(song) {
+   function playAudio(song) {
             var audio = document.getElementById('audioPlayer');
-            if (audio.src !== song) {
+            if (audio.src.indexOf(song) === -1) { // Pequeña mejora para comparar rutas
                 audio.src = song;
             }
-            audio.play();
+            audio.play().catch(e => console.log("Esperando interacción del usuario para reproducir"));
         }
 
         function stopAudio() {
             var audio = document.getElementById('audioPlayer');
             audio.pause();
             audio.currentTime = 0;
-            setVolume(0.5);  // Restablece el volumen a 50%
-            document.getElementById('volumeControl').value = 0.5;  // Actualiza el control deslizante
+            setVolume(0.5);  
+            document.getElementById('volumeControl').value = 0.5;  
         }
-
 
         function restartAudio() {
             var audio = document.getElementById('audioPlayer');
             audio.currentTime = 0;
             audio.play();
-            setVolume(0.5);  // Restablece el volumen a 50%
-            document.getElementById('volumeControl').value = 0.5;  // Actualiza el control deslizante
+            setVolume(0.5);  
+            document.getElementById('volumeControl').value = 0.5;  
         }
 
         function setVolume(volume) {
@@ -681,29 +686,70 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
             audio.volume = volume;
         }
 
-
-
-
-        
-        // Obtener todos los elementos de texto en el cuerpo del documento
-        var textElements = document.body.getElementsByTagName('*');
-        
-        // Obtener todos los elementos de texto en el cuerpo del documento
-        var textElements = document.body.getElementsByTagName('*');
-        
-
+        // --- 2. FUNCIONES DE UTILIDAD (Recargar, Menu, etc) ---
         function hardReload() {
-            window.location.reload(true);
+            // Esto fuerza a recargar desde el servidor y actualiza la caché
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    for(let registration of registrations) {
+                        registration.unregister();
+                    } 
+                    window.location.reload(true);
+                });
+            } else {
+                window.location.reload(true);
+            }
         }
 
         function toggleMenu() {
             const menuButton = document.querySelector('.menu-button');
             const menuContent = document.getElementById('menuContent');
-            menuButton.classList.toggle('open');
-            menuContent.classList.toggle('open');
+            if(menuButton && menuContent){
+                menuButton.classList.toggle('open');
+                menuContent.classList.toggle('open');
+            }
         }
-       
-   
+
+        // --- 3. CÓDIGO NUEVO PARA MODO SIN INTERNET (Service Worker) ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw.js').then(function(registration) {
+                    console.log('ServiceWorker registrado con éxito: ', registration.scope);
+                    
+                    // Lógica para mostrar el mensaje de "✅ Listo"
+                    var indicador = document.getElementById('estado-offline');
+                    
+                    // Si el Service Worker ya está activo y controlando la página
+                    if (registration.active || navigator.serviceWorker.controller) {
+                        if(indicador) {
+                            indicador.style.display = 'inline-block';
+                            indicador.innerText = "✅ Listo para usarse sin internet";
+                        }
+                    }
+
+                    // Detectar cambios de estado (si se está instalando apenas)
+                    registration.onupdatefound = function() {
+                        var installingWorker = registration.installing;
+                        installingWorker.onstatechange = function() {
+                            if (installingWorker.state === 'installed') {
+                                if (navigator.serviceWorker.controller) {
+                                    console.log('Nuevo contenido disponible.');
+                                } else {
+                                    console.log('El contenido se ha guardado para usar sin internet.');
+                                    if(indicador) {
+                                        indicador.style.display = 'inline-block';
+                                        indicador.innerText = "✅ Listo para usarse sin internet";
+                                    }
+                                }
+                            }
+                        };
+                    };
+
+                }, function(err) {
+                    console.log('ServiceWorker falló al registrarse: ', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
