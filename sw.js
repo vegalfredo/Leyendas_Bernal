@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bernal-cache-v2'; // Cambié a v2 para forzar actualización
+const CACHE_NAME = 'bernal-cache-v3'; // Cambié a v3 para obligar a actualizar
 
 const urlsToCache = [
   './',
@@ -32,15 +32,14 @@ self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
-      console.log('ABRIENDO CACHÉ... INTENTANDO GUARDAR ARCHIVOS UNO POR UNO');
+      console.log('--- NUEVO SW (V3): INTENTANDO GUARDAR ARCHIVOS UNO POR UNO ---');
       
-      // Esta es la parte "A prueba de balas":
-      // Intentamos guardar uno por uno. Si falla uno, no rompe a los demás.
       for (const url of urlsToCache) {
         try {
           await cache.add(url);
+          console.log('✅ Guardado: ' + url);
         } catch (error) {
-          console.error('❌ ERROR FATAL: No se encontró este archivo y no se guardó: ', url);
+          console.error('❌ ERROR FATAL: No se encontró este archivo: ' + url);
         }
       }
     })
@@ -49,7 +48,6 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
-  // Borrar cachés viejas
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
@@ -66,10 +64,8 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Si está en caché, lo devuelve. Si no, lo pide a internet.
-        return response || fetch(event.request);
-      })
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });
