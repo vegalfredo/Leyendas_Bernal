@@ -1,20 +1,14 @@
-// Nombre de la caché (si actualizas audios, cambia v1 a v2)
-const CACHE_NAME = 'bernal-cache-v1';
+const CACHE_NAME = 'bernal-cache-v2'; // Cambié a v2 para forzar actualización
 
-// Lista de archivos que QUEREMOS que se guarden obligatoriamente
 const urlsToCache = [
   './',
   './index.html',
-  // CSS (Basado en tus carpetas)
   './css/estilos.css',
   './css/normalize.css',
-  // JS (Basado en tus carpetas)
   './js/menu.js',
   './js/questions.js',
   './js/slider.js',
-  // Imagenes (Asegurate que el nombre coincida)
   './logo_bernal.png',
-  // AUDIOS (Extraídos de tu HTML)
   './00 Musica de Sala.mp3',
   './01 primera llamada Las Leyendas.mp3',
   './02 Musica de Sala.mp3',
@@ -24,7 +18,7 @@ const urlsToCache = [
   './06 Suspenso entrada Viejita.mp3',
   './07 CHAN CHAN CHAAAN.mp3',
   './08 MUSICA AMOR TELENOVELA.mp3',
-  './09 MUSICA DRAMATIC OK.mp4',  
+  './09 MUSICA DRAMATIC OK.mp3',
   './09 audio musica funebre.mp3',
   './17 Banda Sonora de miedo LEYENDAS BERNAL.mp3',
   './11 Camino hacia el terror.mp3',
@@ -34,25 +28,34 @@ const urlsToCache = [
   './16 ENYA MUSICA FINAL EPICA.mp3'
 ];
 
-// 1. INSTALACIÓN: Al entrar a la web, descargamos todo
 self.addEventListener('install', event => {
-  console.log('Abriendo caché y guardando audios...');
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => console.error('Error al guardar en caché:', err))
+    caches.open(CACHE_NAME).then(async cache => {
+      console.log('ABRIENDO CACHÉ... INTENTANDO GUARDAR ARCHIVOS UNO POR UNO');
+      
+      // Esta es la parte "A prueba de balas":
+      // Intentamos guardar uno por uno. Si falla uno, no rompe a los demás.
+      for (const url of urlsToCache) {
+        try {
+          await cache.add(url);
+        } catch (error) {
+          console.error('❌ ERROR FATAL: No se encontró este archivo y no se guardó: ', url);
+        }
+      }
+    })
   );
 });
 
-// 2. ACTIVACIÓN: Limpiamos cachés viejas si cambias la versión
 self.addEventListener('activate', event => {
+  event.waitUntil(self.clients.claim());
+  // Borrar cachés viejas
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
+            console.log('Borrando caché vieja:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -61,17 +64,12 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 3. INTERCEPTAR PETICIONES: Si pide un archivo, miramos primero en la caché
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Si está en caché, lo devolvemos (Modo Offline)
-        if (response) {
-          return response;
-        }
-        // Si no, intentamos buscarlo en internet
-        return fetch(event.request);
+        // Si está en caché, lo devuelve. Si no, lo pide a internet.
+        return response || fetch(event.request);
       })
   );
 });
