@@ -657,12 +657,30 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
 
     <audio id="audioPlayer"></audio>
 
-   function playAudio(song) {
+    <!-- ESTA ETIQUETA <script> ERA LA QUE FALTABA -->
+    <script>
+        // --- 1. FUNCIONES DE AUDIO ---
+        function playAudio(song) {
             var audio = document.getElementById('audioPlayer');
-            if (audio.src.indexOf(song) === -1) { // Pequeña mejora para comparar rutas
+            
+            // Decodificamos la URL para evitar errores con los espacios (%20)
+            var currentSrc = decodeURIComponent(audio.src);
+            
+            // Si la canción nueva no está en la ruta actual, la cambiamos
+            if (currentSrc.indexOf(song) === -1) {
                 audio.src = song;
             }
-            audio.play().catch(e => console.log("Esperando interacción del usuario para reproducir"));
+            
+            var playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Reproducción automática iniciada
+                })
+                .catch(error => {
+                    console.log("El navegador bloqueó el audio automático o hubo un error:", error);
+                });
+            }
         }
 
         function stopAudio() {
@@ -670,7 +688,8 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
             audio.pause();
             audio.currentTime = 0;
             setVolume(0.5);  
-            document.getElementById('volumeControl').value = 0.5;  
+            var volControl = document.getElementById('volumeControl');
+            if(volControl) volControl.value = 0.5;
         }
 
         function restartAudio() {
@@ -678,7 +697,8 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
             audio.currentTime = 0;
             audio.play();
             setVolume(0.5);  
-            document.getElementById('volumeControl').value = 0.5;  
+            var volControl = document.getElementById('volumeControl');
+            if(volControl) volControl.value = 0.5;
         }
 
         function setVolume(volume) {
@@ -688,7 +708,6 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
 
         // --- 2. FUNCIONES DE UTILIDAD (Recargar, Menu, etc) ---
         function hardReload() {
-            // Esto fuerza a recargar desde el servidor y actualiza la caché
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistrations().then(function(registrations) {
                     for(let registration of registrations) {
@@ -716,10 +735,8 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
                 navigator.serviceWorker.register('./sw.js').then(function(registration) {
                     console.log('ServiceWorker registrado con éxito: ', registration.scope);
                     
-                    // Lógica para mostrar el mensaje de "✅ Listo"
                     var indicador = document.getElementById('estado-offline');
                     
-                    // Si el Service Worker ya está activo y controlando la página
                     if (registration.active || navigator.serviceWorker.controller) {
                         if(indicador) {
                             indicador.style.display = 'inline-block';
@@ -727,7 +744,6 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
                         }
                     }
 
-                    // Detectar cambios de estado (si se está instalando apenas)
                     registration.onupdatefound = function() {
                         var installingWorker = registration.installing;
                         installingWorker.onstatechange = function() {
@@ -735,7 +751,7 @@ Así que ya saben si caminan por valles oscuros, si hay tristeza en su corazón,
                                 if (navigator.serviceWorker.controller) {
                                     console.log('Nuevo contenido disponible.');
                                 } else {
-                                    console.log('El contenido se ha guardado para usar sin internet.');
+                                    console.log('El contenido se ha guardado.');
                                     if(indicador) {
                                         indicador.style.display = 'inline-block';
                                         indicador.innerText = "✅ Listo para usarse sin internet";
